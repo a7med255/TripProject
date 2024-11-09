@@ -14,7 +14,6 @@ public partial class TbTrip
     [StringLength(2000, ErrorMessage = "Description must be less than 2000")]
     public string? Description { get; set; }
     [Required(ErrorMessage = "please Enter Price")]
-    [StringLength(100000, ErrorMessage = "price must be less than 100000")]
     public int Price { get; set; }
     [Required(ErrorMessage = "please Enter Image")]
     public string? Image { get; set; }
