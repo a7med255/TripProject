@@ -15,7 +15,6 @@ public partial class TbTrip
     public string? Description { get; set; }
     [Required(ErrorMessage = "please Enter Price")]
     public int Price { get; set; }
-    [Required(ErrorMessage = "please Enter Image")]
     public string? Image { get; set; }
 
     public int? CategoryId { get; set; }
