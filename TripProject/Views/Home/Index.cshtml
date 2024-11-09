@@ -1,0 +1,125 @@
+﻿
+@model VwHome
+
+<div class="title1 section-t-space">
+    <h4>exclusive Trips</h4>
+    <h2 class="title-inner1">special Trips</h2>
+</div>
+<section class="section-b-space p-t-0 ratio_asos">  
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="theme-tab">
+                    <ul class="tabs tab-title">
+                        <li class="current"><a href="tab-4">New Trips</a></li>
+                        <li class=""><a href="tab-5">Trips</a></li>
+                        <li class=""><a href="tab-6">Best Sellers Trips</a></li>
+                    </ul>
+                    <div class="tab-content-cls">
+                        <div id="tab-4" class="tab-content active default">
+                            <div class="no-slider row">
+                               @foreach(var trip in Model.lstNewTrips){
+                                <div class="product-box">
+                                    <div class="img-wrapper">
+                                        <div class="front">
+                                            <a asp-controller="Home" asp-action="Details" asp-route-id="@trip.Id">
+                                                    <img src="~/Uploads/Trips/@trip.Image"
+                                                     class="img-fluid blur-up lazyload bg-img" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="back">
+                                             <a asp-controller="Home" asp-action="Details" asp-route-id="@trip.Id">
+                                                    <img src="~/Uploads/Trips/@trip.Image"
+                                                     class="img-fluid blur-up lazyload bg-img" alt="">
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                    <div class="product-detail">
+                                        <div class="rating">
+                                           <h5>(@trip.BestSellerRequest)</h5>
+                                        </div>
+                                            <a asp-controller="Home" asp-action="Details" asp-route-id="@trip.Id">
+                                            <h3>@trip.Name</h3>
+                                            <h3>@trip.CityName</h3>
+                                        </a>    
+                                        <h4>@trip.Price$</h4>
+                                    </div>
+                                </div>
+                               }
+                            </div>
+                        </div>
+                        <div id="tab-5" class="tab-content">
+                            <div class="no-slider row">
+                                @foreach (var trip in Model.lstRandomlyTrips)
+                                {
+                                    <div class="product-box">
+                                        <div class="img-wrapper">
+                                            <div class="front">
+                                                <a asp-controller="Home" asp-action="Details" asp-route-id="@trip.Id">
+                                                    <img src="~/Uploads/Trips/@trip.Image"
+                                                         class="img-fluid blur-up lazyload bg-img" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="back">
+                                                <a asp-controller="Home" asp-action="Details" asp-route-id="@trip.Id">
+                                                    <img src="~/Uploads/Trips/@trip.Image"
+                                                         class="img-fluid blur-up lazyload bg-img" alt="">
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                        <div class="product-detail">
+                                            <div class="rating">
+                                                <h5>(@trip.BestSellerRequest)</h5>
+                                            </div>
+                                            <a asp-controller="Home" asp-action="Details" asp-route-id="@trip.Id">
+                                                <h3>@trip.Name</h3>
+                                                <h3>@trip.CityName</h3>
+                                            </a>
+                                            <h4>@trip.Price$</h4>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div id="tab-6" class="tab-content">
+                            <div class="no-slider row">
+                                @foreach (var trip in Model.lstBestSallerTrips)
+                                {
+                                    <div class="product-box">
+                                        <div class="img-wrapper">
+                                            <div class="front">
+                                                <a asp-controller="Home" asp-action="Details" asp-route-id="@trip.Id">
+                                                    <img src="~/Uploads/Trips/@trip.Image"
+                                                         class="img-fluid blur-up lazyload bg-img" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="back">
+                                                <a asp-controller="Home" asp-action="Details" asp-route-id="@trip.Id">
+                                                    <img src="~/Uploads/Trips/@trip.Image"
+                                                         class="img-fluid blur-up lazyload bg-img" alt="">
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                        <div class="product-detail">
+                                            <div class="rating">
+                                                <h5>(@trip.BestSellerRequest)</h5>
+                                            </div>
+                                            <a asp-controller="Home" asp-action="Details" asp-route-id="@trip.Id">
+                                                <h3>@trip.Name</h3>
+                                                <h3>@trip.CityName</h3>
+                                            </a>
+                                            <h4>@trip.Price$</h4>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

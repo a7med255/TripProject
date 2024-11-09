@@ -1,0 +1,44 @@
+﻿@model TbCity
+
+
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title"> Form elements </h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Form elements</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-md-8 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Default form</h4>
+                    <p class="card-description"> Basic form layout </p>
+                    <form class="forms-sample" method="post" enctype="multipart/form-data"
+                          asp-controller="City" asp-action="Save" role="form">
+                        <input asp-for="Id" type="hidden" />
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">CityName</label>
+                            <input asp-for= "CityName" type="text" class="form-control" placeholder="City Name">
+                            <span asp-validation-for="CityName"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputUsername3">Country Name</label>
+                            <select class="form-control" asp-for="CounturyId" asp-items="@(new SelectList(ViewBag.lstCountry,"Id","CounturyName"))">
+                                <option>Select Country Name</option>
+
+                            </select>
+                            <span asp-validation-for="CounturyId"></span>
+                        </div>
+
+
+                        <button type="submit" formmethod="post" class="btn btn-gradient-primary me-2">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

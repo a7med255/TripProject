@@ -1,0 +1,74 @@
+﻿@model List<VwTrip>
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="col-12">
+                <label for="exampleInputUsername1">CategoryName</label>
+                <select id="category" asp-items="@(new SelectList(ViewBag.lstCategories,"Id","CategoryName"))" >
+                    <option>Select category</option>
+                </select>
+                <label for="exampleInputUsername1">CityName</label>
+                <select id="city" asp-items="@(new SelectList(ViewBag.lstCity,"Id","CityName"))" onchange="Search('#category','#city')">
+                    <option>Select City</option>
+                </select>
+                <a style="height:max-content" href="/Admin/Trip/List" class="btn btn-info btn-fw">Rest</a>
+            </div>  
+            <h4 class="card-title">Striped Table</h4>
+            <p class="card-description">
+                Add class <code>.table-striped</code>
+            </p>
+            <a href="/Admin/Trip/Edit" class="btn btn-success btn-fw">New</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th> Image </th>
+                        <th> Trip Name </th>
+                        <th> Category Name </th>
+                        <th> City Name </th>
+                        <th> BestSellerRequest </th>
+                        <th> Actions </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var trips in Model)
+                    {
+                        <tr>
+                            <td class="py-1">
+                                <img src="/Uploads/Trips/@trips.Image" >
+                            </td>
+                            <td> @trips.Name</td>
+                            <td> @trips.CategoryName</td>
+                            <td> @trips.CityName</td>
+                            <td> @trips.BestSellerRequest</td>
+
+                            <td>
+                                <a style="height:max-content"
+                                   asp-controller="Trip" asp-action="Edit" asp-route-id="@trips.Id"
+                                   class="btn btn-info btn-fw">Edit</a>
+
+
+                                <a asp-controller="Trip" asp-action="Delete" asp-route-id="@trips.Id"
+                                   class="btn btn-danger btn-fw"
+                                   onclick="return confirm("Are you sure");">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+
+    function Search(category,city) {
+        var categoryId = $(category).val();
+        var cityId = $(city).val();
+
+        if (categoryId && cityId) {
+            window.location.href = `/admin/Trip/Search?categoryId=${categoryId}&cityId=${cityId}`;
+        }
+    }
+    </script>

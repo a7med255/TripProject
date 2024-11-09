@@ -1,0 +1,174 @@
+﻿@model VwDetail
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>@Model.vwTrips.CategoryName</h2>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Details</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<section>
+    <div class="collection-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-12 p-0">
+                            <div class="modal-body"><img src="~/Uploads/Trips/@(Model.vwTrips.Image)" alt="" class="img-fluid blur-up lazyload"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 rtl-text">
+                    <div class="product-right">
+                        <h2 class="mb-0">@Model.vwTrips.Name</h2>
+                        <h5 class="mb-2">IN @Model.vwTrips.CityName</h5>
+                        <h3> $@Model.vwTrips.Price</h3>
+
+                        <div class="border-product">
+                            <h6 class="product-title">@(Model.vwTrips.CategoryName) details</h6>
+                            <p>
+                                @Model.vwTrips.Description
+                            </p>
+
+
+
+
+                           @if ((Model.vwTrips.UpdateDate) == null)
+                            {
+                                <p>Created IN @(Model.vwTrips.CreatedDate)</p>
+                            }
+                            else
+                            {
+                                <p>Updated IN @(Model.vwTrips.UpdateDate)</p>
+                            }
+
+                        </div>
+                        <div class="border-product">
+                            <h6 class="product-title">share it</h6>
+                            <div class="product-icon">
+                                <ul class="product-social">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title"> Form elements </h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Form elements</li>
+            </ol>
+        </nav>
+    </div>
+    <form class="forms-sample" method="post" enctype="multipart/form-data"
+          asp-controller="Home" asp-action="Details" role="form">
+        <div class="row">
+
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Default form</h4>
+                        <p class="card-description"> Basic form layout </p>
+                        <input type="hidden" asp-for="TbRequest.Id" />
+                        <input asp-for="TbRequest.CreateDate" type="hidden" />
+                        <input asp-for="TbRequest.RequestId" type="hidden" />
+                        <input asp-for="TbRequest.Image" type="hidden" />
+
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">Name</label>
+                            <input asp-for="TbRequest.Name" type="text" class="form-control" placeholder="Name">
+                            <span asp-validation-for="TbRequest.Name"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername5">Email</label>
+                            <input asp-for="TbRequest.Gmail" type="email" class="form-control" placeholder="Email">
+                            <span asp-validation-for="TbRequest.Gmail"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputUsername6">Phone</label>
+                            <input asp-for="TbRequest.Phone" type="number" class="form-control" placeholder="Phone">
+                            <span asp-validation-for="TbRequest.Phone"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">
+                                Image
+                            </label>
+                            <input asp-for="TbRequest.Image" type="file" name="Files" multiple
+                                   class="form-control" placeholder="Image"
+                                   onchange="Upload.UploadDefaultImg(event)" accept=".jpg, .jpeg, .png, ,.gif">
+
+                        </div>
+
+                        <button type="submit" formmethod="post" class="btn btn-gradient-primary me-2">Book Now</button>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Main Data</h4>
+                        <p class="card-description"> Basic form layout </p>
+                        <span id="tbImgName"></span>
+                        <div id="tbImgSrc">
+                            <img src="/Uploads/Users/@Model.TbRequest.Image" style="width:95%; height:300px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+
+</div>
+
+@section Scripts
+{
+    <script>
+        var Upload = {
+            UploadDefaultImg: function (e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    CourseMediaImgName = file.name;
+                    CourseMediaImgBase64 = reader.result.slice(reader.result.indexOf('base64,') + 7);
+                    $("#tbImgName").html(file.name)
+                    $("#tbImgSrc").html(`<img class="thumbnail" src = "${reader.result}"  style = "width: 200px;height: 300px;border-radius: 5px;border: 1px solid #d9d9d9;padding: 1px;" />`)
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+}

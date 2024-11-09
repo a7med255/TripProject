@@ -1,0 +1,113 @@
+﻿@model VwRequest
+@{
+}
+
+@section Styles
+{
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="~/assets/Backend/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <!-- End plugin css for this page -->
+}
+
+
+<div class="container-fluid page-body-wrapper">
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="page-header">
+                <h3 class="page-title"> Data table </h3>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Data table</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-12">
+                        <label for="exampleInputUsername1">CategoryName</label>
+                        <select id="category" asp-items="@(new SelectList(Model.lstCategories,"Id","CategoryName"))">
+                            <option>Select category</option>
+                        </select>
+                        <label for="exampleInputUsername1">CityName</label>
+                        <select id="city" asp-items="@(new SelectList(Model.lstCity,"Id","CityName"))" onchange="Search('#category','#city')">
+                            <option>Select City</option>
+                        </select>
+                        <a style="height:max-content" href="/Admin/Requests/List" class="btn btn-info btn-fw">Rest</a>
+                    </div>
+
+                    <h4 class="card-title">Data table</h4>
+                    <div class="row">
+                        <div class="col-12">
+                            <table id="order-listing" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th> Image </th>
+                                        <th> Name </th>
+                                        <th> Request Trip </th>
+                                        <th> Email </th>
+                                        <th> Phone</th>
+                                        <th>Actuins</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var req in Model.lstRequest)
+                                    {
+                                        <tr style="margin:0px;padding:0px;">
+                                            <td class="py-1">
+                                                <img src="/Uploads/Users/@req.Image">
+                                            </td>
+                                            <td class="col-md-8">@req.Name</td>
+                                            <td class="col-md-8">@req.RequestId</td>
+                                            <td class="col-md-8">@req.Gmail</td>
+                                            <td class="col-md-8">@req.Phone</td>
+                                            <td class="col-md-4" style="margin:0px;padding:0px;">
+
+                                                <a style="height:max-content"
+                                                   asp-controller="Requests" asp-action="Details" asp-route-id="@req.Id"
+                                                   class="btn btn-info btn-fw">Details</a>
+
+                                                <a asp-controller="Requests" asp-action="Delete" asp-route-id="@req.Id"
+                                                   class="btn btn-danger btn-fw"
+                                                   onclick="return confirm(" Are you sure");">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+    </div>
+    <!-- main-panel ends -->
+</div>
+
+@section Scripts
+{
+    <!-- plugins:js -->
+    <script src="~/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="~/assets/vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="~/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page -->
+    <script src="~/assets/js/data-table.js"></script>
+    <!-- End custom js for this page -->
+
+    <script>
+
+        function Search(category, city) {
+            var categoryId = $(category).val();
+            var cityId = $(city).val();
+
+            if (categoryId && cityId) {
+                window.location.href = `/admin/Requests/Search?categoryId=${categoryId}&cityId=${cityId}`;
+            }
+        }
+    </script>
+}
